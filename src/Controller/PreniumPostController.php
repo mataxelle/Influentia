@@ -22,28 +22,28 @@ class PreniumPostController extends AbstractController
         ]);
     }
 
-    public function prenium_post_add(): Response
+    public function add(): Response
     {
-        return $this->render('prenium_post/prenium_post_add.html.twig', [
+        return $this->render('prenium_post/prenium_add.html.twig', [
             'controller_name' => 'PreniumPostController',
         ]);
     }
 
-    public function prenium_post_show(PreniumPost $preniumPost): Response
+    public function show(PreniumPost $preniumPost): Response
     {
-        return $this->render('prenium_post/prenium_post_show.html.twig', [
+        return $this->render('prenium_post/prenium_show.html.twig', [
             'preniumPost' => $preniumPost,
         ]);
     }
 
-    public function prenium_post_edit(): Response
+    public function edit(): Response
     {
-        return $this->render('prenium_post/prenium_post_edit.html.twig', [
+        return $this->render('prenium_post/prenium_edit.html.twig', [
             'controller_name' => 'PreniumPostController',
         ]);
     }
 
-    public function prenium_post_delete(PreniumPost $preniumPost): Response
+    public function delete(PreniumPost $preniumPost): Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($preniumPost);
