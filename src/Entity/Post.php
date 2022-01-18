@@ -3,33 +3,69 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: PostRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=PostRepository::class)
+ */
 class Post
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
+     */
     private $title;
 
-    #[ORM\Column(type: 'text')]
+    /**
+     * @ORM\Column(type="text")
+     */
     private $content;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
+     */
     private $author;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $image;
 
-    #[ORM\Column(type: 'datetime')]
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private $publicationDate;
 
-    #[ORM\Column(type: 'datetime')]
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private $updateDate;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $published;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="posts")
+     */
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +140,42 @@ class Post
     public function setUpdateDate(\DateTimeInterface $updateDate): self
     {
         $this->updateDate = $updateDate;
+
+        return $this;
+    }
+
+    public function getPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }
