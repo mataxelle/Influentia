@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}one prenium{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Hello Accueil !</h1>
+    <div>One prenium</div>
+    <a href="{{ path('prenium_post_edit', {'id' : post.id}) }}">Modifier le post</a>
+    <a href="{{ path('prenium_post_delete', {'id' : post.id}) }}">Supprimer le post</a>
+</div>
+{% endblock %}

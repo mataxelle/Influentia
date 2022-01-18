@@ -22,11 +22,16 @@ post_delete:
   requirements:
     id: '\d+'
 
+# about
+about:
+  path: /about
+  controller: App\Controller\PostController::about    
+
 
 # prenium post
 prenium:
     path: /prenium
-    controller: App\Controller\PostController::prenium
+    controller: App\Controller\PreniumPostController::prenium
 
 prenium_post_add:
   path: /prenium_post/add
