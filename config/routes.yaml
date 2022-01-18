@@ -1,3 +1,53 @@
 index:
     path: /
     controller: App\Controller\PostController::index
+
+post_add:
+  path: /post/add
+  controller: App\Controller\PostController::add
+
+post_show:
+  path: /post/show/{id}
+  controller: App\Controller\PostController::show
+
+post_edit:
+  path: /post/edit/{id}
+  controller: App\Controller\PostController::edit
+  requirements:
+    id: '\d+'
+  
+post_delete:
+  path: /post/delete/{id}
+  controller: App\Controller\PostController::delete
+  requirements:
+    id: '\d+'
+
+
+# prenium post
+prenium:
+    path: /prenium
+    controller: App\Controller\PostController::prenium
+
+prenium_post_add:
+  path: /prenium_post/add
+  controller: App\Controller\PreniumPostController::add
+
+prenium_post_show:
+  path: /prenium_post/show/{id}
+  controller: App\Controller\PreniumPostController::show
+
+prenium_post_edit:
+  path: /prenium_post/edit/{id}
+  controller: App\Controller\PreniumPostController::edit
+  requirements:
+    id: '\d+'
+  
+prenium_post_delete:
+  path: /prenium_post/delete/{id}
+  controller: App\Controller\PreniumPostController::delete
+  requirements:
+    id: '\d+'
+
+# admin
+
+# user
