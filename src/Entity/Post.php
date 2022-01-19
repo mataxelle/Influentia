@@ -22,18 +22,21 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
+     * @Assert\Length(min=2)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
+     * @Assert\Length(min=2)
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
      */
     private $author;
 
