@@ -25,7 +25,7 @@ class PostType extends AbstractType
                 'required' => false,
                 'data_class' => null
             ])
-            ->add('published', CheckboxType::class)
+            ->add('published', CheckboxType::class, ['required' => false])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'label',

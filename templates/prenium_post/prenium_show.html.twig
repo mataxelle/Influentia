@@ -1,12 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}one prenium{% endblock %}
+{% block title %}{{ parent() }} | {{ preniumPost.title }}{% endblock %}
 
 {% block body %}
 <div>
-    <h1>Hello Accueil !</h1>
-    <div>One prenium</div>
-    <a href="{{ path('prenium_post_edit', {'id' : post.id}) }}">Modifier le post</a>
-    <a href="{{ path('prenium_post_delete', {'id' : post.id}) }}">Supprimer le post</a>
+    <div class="col s12">
+		{% for message in app.flashes('message') %}
+            <div class="flash-message">
+                <P>{{ message }}</p>
+            </div>
+        {% endfor %}
+	</div>
+
+    <h1>{{ preniumPost.title }}</h1>
+
+    <div>
+        <p>{% for category in preniumPost.categories %}
+                {{ category.label }}{{ loop.last ? '' : ',' }}
+            {% endfor %}
+        </p>
+        <div>
+            {% if preniumPost.image %}
+                <img src="{{ asset('uploads/' ~ preniumPost.image) }}" alt="{{ preniumPost.title }}" />
+            {% else %}
+                <span>Pas d'image</span>
+            {% endif %}
+            <p>{{ preniumPost.content }}</p>
+            <p>{{ preniumPost.author }}</p>
+            <p>Publié le {{ preniumPost.updateDate|date('d/m/Y') }}</p>
+            <span> {{ preniumPost.published ? 'Oui' : 'Non' }}</span>
+        </div>
+    </div>
+    <a href="{{ path('prenium_post_edit', {'id' : preniumPost.id}) }}">Modifier le post</a>
+    <a href="{{ path('prenium_post_delete', {'id' : preniumPost.id}) }}">Supprimer le post</a>
 </div>
 {% endblock %}

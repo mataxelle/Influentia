@@ -65,9 +65,17 @@ class PreniumPostController extends AbstractController
             $em->persist($preniumPost);
             $em->flush();
 
-            $this->addFlash('message', 'Nouveau post prenium ajouté avec succès');
+            if ($preniumPost->getPublished() == 0) {
 
-            return $this->redirectToRoute('prenium_show', ['id' => $preniumPost->getId()]);
+                $this->addFlash('message', 'Article Prenium créé, mais non publié pour le moment !');
+        
+            } else {
+
+                $this->addFlash('message', 'Nouvel article Prenium ajouté avec succès');
+
+                return $this->redirectToRoute('prenium_post_show', ['id' => $preniumPost->getId()]);
+            }
+        
         }
 
         return $this->render('prenium_post/prenium_add.html.twig', [
@@ -82,10 +90,58 @@ class PreniumPostController extends AbstractController
         ]);
     }
 
-    public function edit(): Response
+    public function edit(Request $request, EntityManagerInterface $em, PreniumPost $preniumPost): Response
     {
+        $oldImage = $preniumPost->getImage();
+
+        $form = $this->createForm(PreniumPostType::class, $preniumPost);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $preniumPost->setUpdateDate(new \DateTime());
+
+            if ($preniumPost->getImage() !== null && $preniumPost->getImage() !== $oldImage) {
+                $file = $form->get('image')->getData();
+                $fileName =  uniqid(). '.' .$file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    return new Response($e->getMessage());
+                }
+
+                $preniumPost->setImage($fileName);
+            } else {
+                $preniumPost->setImage($oldImage);
+            }
+
+            if (!$preniumPost->getPublicationDate()) {
+                $preniumPost->setPublicationDate(new \DateTime());
+            }
+
+            $em->persist($preniumPost);
+            $em->flush();
+
+            if ($preniumPost->getPublished() == 0) {
+
+                $this->addFlash('message', 'Article Prenium modifié, mais non publié pour le moment !');
+        
+            } else {
+
+                $this->addFlash('message', 'Nouvel article Prenium ajouté avec succès');
+
+                return $this->redirectToRoute('prenium_post_show', ['id' => $preniumPost->getId()]);
+            }
+
+        }
+
         return $this->render('prenium_post/prenium_edit.html.twig', [
-            'controller_name' => 'PreniumPostController',
+            'preniumPost' => $preniumPost,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -94,6 +150,6 @@ class PreniumPostController extends AbstractController
         $em->remove($preniumPost);
         $em->flush();
 
-        return $this->redirectToRoute('index');
+        return $this->redirectToRoute('prenium');
     }
 }

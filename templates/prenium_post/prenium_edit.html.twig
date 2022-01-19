@@ -1,10 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ parent() }} | {{ preniumPost.title }}{% endblock %}
 
 {% block body %}
 <div>
-    <h1>Hello Accueil !</h1>
-    <div>edit porm pre</div>
+    <h1>Modifier "{{ preniumPost.title }}"</h1>
+    <div>
+		{% if preniumPost.image is not null %}
+			<img src="{{ asset('uploads/' ~ preniumPost.image) }}">
+		{% endif %}
+	</div>
+
+    {% include "includes/prenium_form.html.twig" %}
 </div>
 {% endblock %}

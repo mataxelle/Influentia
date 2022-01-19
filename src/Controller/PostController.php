@@ -66,7 +66,14 @@ class PostController extends AbstractController
             $em->flush(); // On execute la requete
 
 
-            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+            if ($post->getPublished() == 0) {
+                $this->addFlash('message', 'Article créé, mais non publié pour le moment !');
+        
+            } else {
+                $this->addFlash('message', 'Article ajouté avec succès');
+
+                return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+            }
         }
 
         return $this->render('post/post_add.html.twig', [
@@ -81,10 +88,56 @@ class PostController extends AbstractController
         ]);
     }
 
-    public function edit(): Response
+    public function edit(Request $request, EntityManagerInterface $em, Post $post): Response
     {
+        $oldImage = $post->getImage();
+
+        $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $post->setUpdateDate(new \DateTime());
+
+            if ($post->getImage() !== null && $post->getImage() !== $oldImage) {
+                $file = $form->get('image')->getData();
+                $fileName =  uniqid(). '.' .$file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    return new Response($e->getMessage());
+                }
+
+                $post->setImage($fileName);
+            } else {
+                $post->setImage($oldImage);
+            }
+
+            if (!$post->getPublicationDate()) {
+                $post->setPublicationDate(new \DateTime());
+            }
+
+            $em->persist($post);
+            $em->flush();
+
+
+            if ($post->getPublished() == 0) {
+                $this->addFlash('message', 'Article modifié, mais non publié pour le moment !');
+        
+            } else {
+                $this->addFlash('message', 'Article modifié avec succès');
+
+                return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+            }
+        }
+
         return $this->render('post/post_edit.html.twig', [
-            'controller_name' => 'PostController',
+            'post' => $post,
+            'form' => $form->createView(),
         ]);
     }
 

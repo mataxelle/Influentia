@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ parent() }} | Ajouter Prenium{% endblock %}
 
 {% block body %}
 <div>
-    <h1>Hello Accueil !</h1>
-    <div>form prenium</div>
+    <h1>Ajouter un article Prenium !</h1>
+
+    {% include "includes/prenium_form.html.twig" %}
 </div>
 {% endblock %}

@@ -48,7 +48,7 @@ class PreniumPost
     private $publicationDate;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="datetime")
      */
     private $updateDate;
 
