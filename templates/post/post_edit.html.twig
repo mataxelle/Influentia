@@ -4,13 +4,13 @@
 
 {% block body %}
 <div>
-    <h1>{{ post.title }}</h1>
+    <h1>Modifier "{{ post.title }}"</h1>
     <div>
 		{% if post.image is not null %}
 			<img src="{{ asset('uploads/' ~ post.image) }}">
 		{% endif %}
 	</div>
 
-    {% include "includes/post_form.html.twig" %}
+    {% include "includes/post_form.html.twig" with {"formButton" : "Modifier"} %}
 </div>
 {% endblock %}
