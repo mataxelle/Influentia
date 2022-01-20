@@ -54,6 +54,9 @@ prenium_post_delete:
     id: '\d+'
 
 # admin
+admin:
+  path: /admin
+  controller:  App\Controller\AdminController::admin
 
 # user
 register:

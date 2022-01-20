@@ -34,6 +34,8 @@ class PostController extends AbstractController
 
     public function add(Request $request, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
 
@@ -90,6 +92,8 @@ class PostController extends AbstractController
 
     public function edit(Request $request, EntityManagerInterface $em, Post $post): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $oldImage = $post->getImage();
 
         $form = $this->createForm(PostType::class, $post);
@@ -143,6 +147,8 @@ class PostController extends AbstractController
 
     public function delete(Post $post, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         $em->remove($post);
         $em->flush();
 

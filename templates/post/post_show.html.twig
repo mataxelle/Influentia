@@ -40,10 +40,12 @@
 					<div class="card-body">
 						<p class="card-text">{{ post.content }}</p>
 					</div>
+					{% if is_granted('ROLE_ADMIN') %}
 					<div class="my-5">
 						<a href="{{ path('post_edit', {'id' : post.id}) }}" class="btn btn-success">Modifier</a>
 						<a href="{{ path('post_delete', {'id' : post.id}) }}" class="btn btn-danger">Supprimer</a>
 					</div>
+					{% endif %}
 				</div>
 
 				<div class="border-bottom my-4 pb-4">

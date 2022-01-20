@@ -34,6 +34,8 @@ class PreniumPostController extends AbstractController
 
     public function add(Request $request, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $preniumPost = new PreniumPost();
         $form = $this->createForm(PreniumPostType::class, $preniumPost);
 
@@ -92,6 +94,8 @@ class PreniumPostController extends AbstractController
 
     public function edit(Request $request, EntityManagerInterface $em, PreniumPost $preniumPost): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $oldImage = $preniumPost->getImage();
 
         $form = $this->createForm(PreniumPostType::class, $preniumPost);
@@ -147,6 +151,8 @@ class PreniumPostController extends AbstractController
 
     public function delete(PreniumPost $preniumPost, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         $em->remove($preniumPost);
         $em->flush();
 

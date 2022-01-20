@@ -33,12 +33,23 @@
 								<a class="nav-link" href="{{ path('prenium') }}">Prenium<span class="sr-only"></span>
 								</a>
 							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+									Admin
+								</a>
+								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="{{ path('admin') }}">Dashboard</a>
+									<a class="dropdown-item" href="{{ path('register') }}">Ajouter article</a>
+									<a class="dropdown-item" href="{{ path('admin') }}">Ajouter Prenium</a>
+								</div>
+							</li>
+							{% endif %}
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
 									Profile
 								</a>
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-								    <a class="dropdown-item" href="{{ path('admin') }}">Admin</a>
 									{% if app.user %}
 									    <a class="dropdown-item" href="{{ path('account', {'id': app.user.id}) }}">Mon compte</a>
 									    <a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
