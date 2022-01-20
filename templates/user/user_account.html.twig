@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	| Compte
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col s12">
+			{% for message in app.flashes('message') %}
+				<div class="flash-message">
+					<P>{{ message }}</p>
+				</div>
+			{% endfor %}
+		</div>
+
+		<h1 class="text-center my-5">Mon compte</h1>
+
+		<div class="row mb-5">
+			<div class="col-6 offset-md-3 mx-auto">
+				<div class="card border-0">
+					<div class="card-image">
+						<img src="{{asset('/assets/images/avatar-user1.png')}}" alt="image d'utilisateur">
+					</div>
+					<div class="card-body">
+					    <p class="card-title">
+							{{ app.user.firstname }} {{ app.user.lastname }}
+						</p>
+						<p class="bold">Email :</p><br>
+						<p>{{ app.user.email }}</p><br>
+						<p class="bold">Date d'inscription :</p><br>
+						<p>{{ app.user.creationDate|date('d/m/Y') }}</p>
+						<div class="card-action user-card-action">
+							<a href="{{ path('account_edit', {'id' : app.user.id}) }}" class="btn btn-success">Modifier</a>
+							<a href="{{ path('account_delete', {'id' : app.user.id}) }}" class="btn btn-danger">Supprimer</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+		    <div class="col-6 offset-md-3 mx-auto">
+			    <a href="{{ path('post_add') }}" class="btn btn-primary">Ecrire une article</a>
+			</div>	
+		</div>
+	</div>
+{% endblock %}

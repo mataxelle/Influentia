@@ -38,7 +38,9 @@
 									Profile
 								</a>
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+								    <a class="dropdown-item" href="{{ path('admin') }}">Admin</a>
 									{% if app.user %}
+									    <a class="dropdown-item" href="{{ path('account', {'id': app.user.id}) }}">Mon compte</a>
 									    <a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
 									{% elseif app.user is null %}
 									    <a class="dropdown-item" href="{{ path('login') }}">Connexion</a>

@@ -68,20 +68,20 @@ logout:
   path: /logout
   controller:  App\Controller\LoginController::logout  
 
-user:
-  path: /user/{id}
-  controller: App\Controller\UserController::index
+account:
+  path: /account/{id}
+  controller: App\Controller\UserController::account
   requirements:
     id: '\d+'
 
-user_edit:
-  path: /user/edit/{id}
+account_edit:
+  path: /account/account_edit/{id}
   controller: App\Controller\UserController::edit
   requirements:
     id: '\d+'
   
-user_delete:
-  path: /user/delete/{id}
+account_delete:
+  path: /account/account_delete/{id}
   controller: App\Controller\UserController::delete
   requirements:
     id: '\d+'
