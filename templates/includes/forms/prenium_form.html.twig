@@ -1,0 +1,35 @@
+{{ form_start(form, {'attr': {'class': 'col-6 offset-md-3 mb-5'}}) }}
+    <div class="mb-3">
+	    {{ form_label(form.title, 'Titre') }}
+	    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+    <div class="mb-3">
+	    {{ form_widget(form.image) }}
+        <span>Image</span>
+	</div>
+
+	<div class="mb-3">
+	    {{ form_label(form.content, 'Contenu de l\'article') }}
+	    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+	<div class="mb-3">
+	    {{ form_label(form.categories, 'Catégories') }}
+	    {{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+	<div class="mb-3">
+	    {{ form_label(form.author, 'Auteur') }}
+	    {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+    <div class="mb-3">
+        {{ form_widget(form.published) }}
+        <span>Publier l'article</span>
+    </div>
+
+	<div class="mb-3">
+	    <input type="submit" name="" class="btn btn-primary" value="{{ formButton }}" formnovalidate>
+	</div>
+{{ form_end(form) }}

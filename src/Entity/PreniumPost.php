@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PreniumPostRepository::class)
+ * @ORM\Table(name="prenium_posts")
  */
 class PreniumPost
 {

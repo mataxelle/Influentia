@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -24,16 +25,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez saisir votre prénom")
+     * @Assert\Length(min=2)
      */
-    private $firsName;
+    private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez saisir votre nom")
+     * @Assert\Length(min=2)
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Veuillez saisir votre email")
      */
     private $email;
 
@@ -63,14 +69,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getFirsName(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->firsName;
+        return $this->firstName;
     }
 
-    public function setFirsName(string $firsName): self
+    public function setFirstName(string $firstName): self
     {
-        $this->firsName = $firsName;
+        $this->firstName = $firstName;
 
         return $this;
     }

@@ -1,0 +1,25 @@
+{{ form_start(registrationForm, {'attr': {'class': 'col-6 offset-md-3 mb-5'}}) }}
+        <div class="mb-3">
+            {{ form_label(registrationForm.firstName, 'Prénom') }}
+            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(registrationForm.lastName, 'Nom') }}
+            {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div>
+            {{ form_label(registrationForm.email, 'Email') }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">     
+            {{ form_label(registrationForm.agreeTerms) }}
+            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-primary" value="S'inscrire" formnovalidate>
+        </div>
+    {{ form_end(registrationForm) }}

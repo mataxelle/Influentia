@@ -56,3 +56,24 @@ prenium_post_delete:
 # admin
 
 # user
+register:
+  path: /register
+  controller:  App\Controller\RegistrationController::register
+
+user:
+  path: /user/{id}
+  controller: App\Controller\UserController::index
+  requirements:
+    id: '\d+'
+
+user_edit:
+  path: /user/edit/{id}
+  controller: App\Controller\UserController::edit
+  requirements:
+    id: '\d+'
+  
+user_delete:
+  path: /user/delete/{id}
+  controller: App\Controller\UserController::delete
+  requirements:
+    id: '\d+'
