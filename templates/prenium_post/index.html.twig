@@ -1,20 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent()}} | Prenium{% endblock %}
+{% block title %}
+	{{ parent()}}
+	| Prenium
+{% endblock %}
 
 {% block body %}
-<div>
-    <h1>Tous les articles Prenium !</h1>
+	<div>
+		<h1>Tous les articles Prenium !</h1>
 
-    <a href="{{ path('prenium_post_add') }}">Ajouter un post prenium</a>
-
-    <article>
-    {% for preniumPost in preniumPosts %}
-        {% if preniumPost.published == 1 %}
-            <h2>{{ preniumPost.title }}</h2>
-            <a href="{{ path('prenium_post_show', {'id' : preniumPost.id}) }}">par ici</a>
-        {% endif %}
-    {% endfor %}
-    </article>
-</div>
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for preniumPost in preniumPosts %}
+				<div class="col">
+					{% if preniumPost.published == 1 %}
+						<div class="card h-100">
+							{% if preniumPost.image %}
+								<img class="card-img-top h-100" src="{{ asset('uploads/' ~ preniumPost.image) }}" alt="{{ preniumPost.image }}">
+							{% else %}
+								<img class="card-img-top h-100" src="{{asset('/assets/images/partage_info.jpg')}}" alt="image de partage d'info">
+							{% endif %}
+							<div class="card-body">
+								<h5 class="card-title">
+									<a href="{{ path('prenium_post_show', {'id' : preniumPost.id}) }}" class="text-decoration-none text-dark">{{ preniumPost.title }}</a>
+								</h5>
+								<p class="card-text">
+									<small class="text-muted"><em>Publié le {{ preniumPost.updateDate|date('d/m/Y') }}</em></small>
+								</p>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

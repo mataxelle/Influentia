@@ -1,20 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Accueil{% endblock %}
+{% block title %}
+	{{ parent() }}
+	| Accueil
+{% endblock %}
 
 {% block body %}
-<div>
-    <h1>Tous les articles</h1>
+	<div>
+		<h1>Tous les articles</h1>
 
-    <a href="{{ path('post_add') }}">Ajouter un post</a>
-    <a href="{{ path('prenium') }}">Voir prenium</a>
-
-    <article>
-    {% for post in posts %}
-        <h2>{{ post.title }}</h2>
-        <a href="{{ path('post_show', {'id' : post.id}) }}">par ici</a>
-        <span>{{ post.updateDate|date('d/m/Y') }}</span>
-    {% endfor %}
-    </article>
-</div>
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for post in posts %}
+				<div class="col">
+					{% if post.published %}
+						<div class="card h-100">
+							{% if post.image %}
+								<img class="card-img-top h-100" src="{{ asset('uploads/' ~ post.image) }}" alt="{{ post.image }}">
+							{% else %}
+								<img class="card-img-top h-100" src="{{asset('/assets/images/partage_info.jpg')}}" alt="image de partage d'info">
+							{% endif %}
+							<div class="card-body">
+								<h5 class="card-title">
+									<a href="{{ path('post_show', {'id' : post.id}) }}" class="text-decoration-none text-dark">{{ post.title }}</a>
+								</h5>
+								<p class="card-text">
+									<small class="text-muted"><em>Publié le {{ post.updateDate|date('d/m/Y') }}</em></small>
+								</p>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

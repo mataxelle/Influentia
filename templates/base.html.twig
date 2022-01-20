@@ -52,15 +52,18 @@
 			</nav>
 		</header>
 
-		<main class="container"> {% block body %}{% endblock %}
-			</main>
+		<main> 
+		    <div class="container">
+			    {% block body %}{% endblock %}
+			</div>	
+		</main>
 
 			<footer class="footer mt-auto py-3 bg-light">
 				<p class="text-center">
 					&copy; Copyright
 					{{ 'now'|date('Y') }}
 					&middot;
-					<a href="{{ path('about') }}">About</a>
+					<a href="{{ path('about') }}" class="text-decoration-none text-secondary">About</a>
 				</p>
 			</footer>
 

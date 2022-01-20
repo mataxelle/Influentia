@@ -1,37 +1,79 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | {{ post.title }}{% endblock %}
+{% block title %}
+	{{ parent() }}
+	|
+	{{ post.title }}
+{% endblock %}
 
 {% block body %}
-<div>
-    <div class="col s12">
-		{% for message in app.flashes('message') %}
-            <div class="flash-message">
-                <P>{{ message }}</p>
-            </div>
-        {% endfor %}
+	<div>
+		<div class="col s12">
+			{% for message in app.flashes('message') %}
+				<div class="flash-message">
+					<P>{{ message }}</p>
+				</div>
+			{% endfor %}
+		</div>
+
+		<div class="row my-5">
+			<div class="col ">
+				<h1 class="text-center">{{ post.title }}</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-6 offset-md-3 mx-auto">
+				<div class="card border-0">
+					<div class="">
+						<div class="d-flex justify-content-end">
+							<span class="text-muted">Publié le
+								{{ post.updateDate|date('d/m/Y') }}</span>
+						</div>
+						<p>
+							{% for category in post.categories %}
+								{{ category.label }}{{ loop.last ? '' : ',' }}
+							{% endfor %}
+						</p>
+					</div>
+					<img class="card-img-top" src="{{ asset('uploads/' ~ post.image) }}" alt="{{ post.image }}">
+					<div class="card-body">
+						<p class="card-text">{{ post.content }}</p>
+					</div>
+					<div class="my-5">
+						<a href="{{ path('post_edit', {'id' : post.id}) }}" class="btn btn-success">Modifier</a>
+						<a href="{{ path('post_delete', {'id' : post.id}) }}" class="btn btn-danger">Supprimer</a>
+					</div>
+				</div>
+
+				<div class="border-bottom my-4 pb-4">
+					<div class="row">
+						<div class="col-3">
+							<img src="" class="img-fluid shadow-1-strong rounded" alt=""/>
+						</div>
+
+						<div class="col-9">
+							<p class="mb-2">
+								<strong>{{ post.title}}</strong>
+							</p>
+							<a href="" class="text-dark">
+								<i class="fab fa-facebook-f me-1"></i>
+							</a>
+							<a href="" class="text-dark">
+								<i class="fab fa-twitter me-1"></i>
+							</a>
+							<a href="" class="text-dark">
+								<i class="fab fa-linkedin me-1"></i>
+							</a>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio est ab iure
+								inventore dolorum consectetur? Molestiae aperiam atque quasi consequatur aut?
+								Repellendus alias dolor ad nam, soluta distinctio quis accusantium!
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-    <h1>{{ post.title }}</h1>
-
-    <div>
-        <p>{% for category in post.categories %}
-                {{ category.label }}{{ loop.last ? '' : ',' }}
-            {% endfor %}
-        </p>
-        <div>
-            {% if post.image %}
-                <img src="{{ asset('uploads/' ~ post.image) }}" alt="{{ post.title }}" />
-            {% else %}
-                <span>Pas d'image</span>
-            {% endif %}
-            <p>{{ post.content }}</p>
-            <p>{{ post.author }}</p>
-            <p>Publié le {{ post.updateDate|date('d/m/Y') }}</p>
-            <span> {{ post.published ? 'Oui' : 'Non' }}</span>
-        </div>
-    </div>
-    <a href="{{ path('post_edit', {'id' : post.id}) }}">Modifier le post</a>
-    <a href="{{ path('post_delete', {'id' : post.id}) }}">Supprimer le post</a>
-</div>
 {% endblock %}

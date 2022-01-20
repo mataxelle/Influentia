@@ -4,34 +4,72 @@
 
 {% block body %}
 <div>
-    <div class="col s12">
-		{% for message in app.flashes('message') %}
-            <div class="flash-message">
-                <P>{{ message }}</p>
-            </div>
-        {% endfor %}
+		<div class="col s12">
+			{% for message in app.flashes('message') %}
+				<div class="flash-message">
+					<P>{{ message }}</p>
+				</div>
+			{% endfor %}
+		</div>
+
+		<div class="row my-5">
+			<div class="col ">
+				<h1 class="text-center">{{ preniumPost.title }}</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-6 offset-md-3 mx-auto">
+				<div class="card border-0">
+					<div class="">
+						<div class="d-flex justify-content-end">
+							<span class="text-muted">Publié le
+								{{ preniumPost.updateDate|date('d/m/Y') }}</span>
+						</div>
+						<p>
+							{% for category in preniumPost.categories %}
+								{{ category.label }}{{ loop.last ? '' : ',' }}
+							{% endfor %}
+						</p>
+					</div>
+					<img class="card-img-top" src="{{ asset('uploads/' ~ preniumPost.image) }}" alt="{{ preniumPost.image }}">
+					<div class="card-body">
+						<p class="card-text">{{ preniumPost.content }}</p>
+					</div>
+					<div class="my-5">
+						<a href="{{ path('post_edit', {'id' : preniumPost.id}) }}" class="btn btn-success">Modifier</a>
+						<a href="{{ path('post_delete', {'id' : preniumPost.id}) }}" class="btn btn-danger">Supprimer</a>
+					</div>
+				</div>
+
+				<div class="border-bottom my-4 pb-4">
+					<div class="row">
+						<div class="col-3">
+							<img src="" class="img-fluid shadow-1-strong rounded" alt=""/>
+						</div>
+
+						<div class="col-9">
+							<p class="mb-2">
+								<strong>{{ preniumPost.title}}</strong>
+							</p>
+							<a href="" class="text-dark">
+								<i class="fab fa-facebook-f me-1"></i>
+							</a>
+							<a href="" class="text-dark">
+								<i class="fab fa-twitter me-1"></i>
+							</a>
+							<a href="" class="text-dark">
+								<i class="fab fa-linkedin me-1"></i>
+							</a>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio est ab iure
+								inventore dolorum consectetur? Molestiae aperiam atque quasi consequatur aut?
+								Repellendus alias dolor ad nam, soluta distinctio quis accusantium!
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-    <h1>{{ preniumPost.title }}</h1>
-
-    <div>
-        <p>{% for category in preniumPost.categories %}
-                {{ category.label }}{{ loop.last ? '' : ',' }}
-            {% endfor %}
-        </p>
-        <div>
-            {% if preniumPost.image %}
-                <img src="{{ asset('uploads/' ~ preniumPost.image) }}" alt="{{ preniumPost.title }}" />
-            {% else %}
-                <span>Pas d'image</span>
-            {% endif %}
-            <p>{{ preniumPost.content }}</p>
-            <p>{{ preniumPost.author }}</p>
-            <p>Publié le {{ preniumPost.updateDate|date('d/m/Y') }}</p>
-            <span> {{ preniumPost.published ? 'Oui' : 'Non' }}</span>
-        </div>
-    </div>
-    <a href="{{ path('prenium_post_edit', {'id' : preniumPost.id}) }}">Modifier le post</a>
-    <a href="{{ path('prenium_post_delete', {'id' : preniumPost.id}) }}">Supprimer le post</a>
-</div>
 {% endblock %}
