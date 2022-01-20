@@ -34,12 +34,16 @@
 								</a>
 							</li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
 									Profile
 								</a>
-								<div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="{{ path('register') }}">Inscription</a>
-									<a class="dropdown-item" href="#">Connexion</a>
+								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+									{% if app.user %}
+									    <a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
+									{% elseif app.user is null %}
+									    <a class="dropdown-item" href="{{ path('login') }}">Connexion</a>
+										<a class="dropdown-item" href="{{ path('register') }}">Inscripion</a>
+									{% endif %}		
 								</div>
 							</li>
 						</ul>
@@ -51,8 +55,8 @@
 		<main class="container"> {% block body %}{% endblock %}
 			</main>
 
-			<footer>
-				<p>
+			<footer class="footer mt-auto py-3 bg-light">
+				<p class="text-center">
 					&copy; Copyright
 					{{ 'now'|date('Y') }}
 					&middot;
