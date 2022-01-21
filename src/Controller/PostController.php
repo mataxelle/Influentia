@@ -42,6 +42,8 @@ class PostController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $post->setUser($this->getUser());
+
             $post->setUpdateDate(new \DateTime());  //initialisation de la dernière modification
 
             if ($post->getImage() !== null) {
@@ -69,7 +71,9 @@ class PostController extends AbstractController
 
 
             if ($post->getPublished() == 0) {
+
                 $this->addFlash('message', 'Article créé, mais non publié pour le moment !');
+                return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
         
             } else {
                 $this->addFlash('message', 'Article ajouté avec succès');

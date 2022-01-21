@@ -7,18 +7,16 @@
 
 {% block body %}
 	<div>
-		<h1>Tous les articles</h1>
+		<h1 class="text-center my-5">Une plateforme d'informations, où le partage est essentiel !</h1>
 
-		<div class="row row-cols-1 row-cols-md-3 g-4">
+		<h2 class="text-center text-secondary mb-5">Articles </h2>
+
+		<div class="row row-cols-1 row-cols-md-3 g-4 ">
 			{% for post in posts %}
 				<div class="col">
 					{% if post.published %}
 						<div class="card h-100">
-							{% if post.image %}
-								<img class="card-img-top h-100" src="{{ asset('uploads/' ~ post.image) }}" alt="{{ post.image }}">
-							{% else %}
-								<img class="card-img-top h-100" src="{{asset('/assets/images/partage_info.jpg')}}" alt="image de partage d'info">
-							{% endif %}
+							{% include "includes/images/post_images.html.twig" %}
 							<div class="card-body">
 								<h5 class="card-title">
 									<a href="{{ path('post_show', {'id' : post.id}) }}" class="text-decoration-none text-dark">{{ post.title }}</a>

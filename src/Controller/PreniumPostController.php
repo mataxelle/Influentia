@@ -42,6 +42,10 @@ class PreniumPostController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $preniumPost->setUser($this->getUser());
+
+            $preniumPost->setPrice(1,00);
+
             $preniumPost->setUpdateDate(new \DateTime());
 
             if ($preniumPost->getImage() !== null) {
@@ -70,6 +74,7 @@ class PreniumPostController extends AbstractController
             if ($preniumPost->getPublished() == 0) {
 
                 $this->addFlash('message', 'Article Prenium créé, mais non publié pour le moment !');
+                return $this->redirectToRoute('prenium_post_show', ['id' => $preniumPost->getId()]);
         
             } else {
 
@@ -87,6 +92,8 @@ class PreniumPostController extends AbstractController
 
     public function show(PreniumPost $preniumPost): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('prenium_post/prenium_show.html.twig', [
             'preniumPost' => $preniumPost,
         ]);

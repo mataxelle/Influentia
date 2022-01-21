@@ -4,7 +4,7 @@
 
 {% block body %}
 <div>
-    <h1>Modifier "{{ preniumPost.title }}"</h1>
+    <h1 class="text-center my-5">Modifier "{{ preniumPost.title }}"</h1>
     <div>
 		{% if preniumPost.image is not null %}
 			<img src="{{ asset('uploads/' ~ preniumPost.image) }}">

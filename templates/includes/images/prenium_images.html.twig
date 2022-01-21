@@ -1,0 +1,5 @@
+{% if preniumPost.image  %}
+	<img class="card-img-top h-100" src="{{asset('uploads/' ~ preniumPost.image)}}" alt="{{ preniumPost.image }}">
+{% else %}
+    <img class="card-img-top h-100" src="{{asset('/assets/images/partage_info.jpg')}}" alt="image de partage d'info">
+{% endif %}

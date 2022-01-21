@@ -32,14 +32,14 @@
 							{% endfor %}
 						</p>
 					</div>
-					<img class="card-img-top" src="{{ asset('uploads/' ~ preniumPost.image) }}" alt="{{ preniumPost.image }}">
+					{% include "includes/images/prenium_images.html.twig" %}
 					<div class="card-body">
 						<p class="card-text">{{ preniumPost.content }}</p>
 					</div>
 					{% if is_granted('ROLE_ADMIN') %}
 					<div class="my-5">
-						<a href="{{ path('post_edit', {'id' : preniumPost.id}) }}" class="btn btn-success">Modifier</a>
-						<a href="{{ path('post_delete', {'id' : preniumPost.id}) }}" class="btn btn-danger">Supprimer</a>
+						<a href="{{ path('prenium_post_edit', {'id' : preniumPost.id}) }}" class="btn btn-success">Modifier</a>
+						<a href="{{ path('prenium_post_delete', {'id' : preniumPost.id}) }}" class="btn btn-danger">Supprimer</a>
 					</div>
 					{% endif %}
 				</div>
@@ -52,7 +52,7 @@
 
 						<div class="col-9">
 							<p class="mb-2">
-								<strong>{{ preniumPost.title}}</strong>
+								<strong>{{ preniumPost.user.id}}</strong>
 							</p>
 							<a href="" class="text-dark">
 								<i class="fab fa-facebook-f me-1"></i>

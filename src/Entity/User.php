@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -63,6 +65,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="datetime")
      */
     private $updateDate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="users")
+     */
+    private $posts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PreniumPost", mappedBy="users")
+     */
+    private $preniumPosts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+        $this->preniumPosts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -206,6 +224,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdateDate(\DateTimeInterface $updateDate): self
     {
         $this->updateDate = $updateDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PreniumPost[]
+     */
+    public function getPreniumPosts(): Collection
+    {
+        return $this->preniumPosts;
+    }
+
+    public function addPreniumPost(PreniumPost $preniumPost): self
+    {
+        if (!$this->preniumPosts->contains($preniumPost)) {
+            $this->preniumPosts[] = $preniumPost;
+            $preniumPost->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePreniumPost(PreniumPost $preniumPost): self
+    {
+        if ($this->preniumPosts->removeElement($preniumPost)) {
+            // set the owning side to null (unless already changed)
+            if ($preniumPost->getUser() === $this) {
+                $preniumPost->setUser(null);
+            }
+        }
 
         return $this;
     }

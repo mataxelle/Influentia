@@ -2,36 +2,35 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Entity\Post;
-use App\Entity\PreniumPost;
-use Doctrine\ORM\EntityManagerInterface;
+
+use App\Repository\PostRepository;
+use App\Repository\PreniumPostRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-    public function admin(EntityManagerInterface $em): Response
+    public function admin(PostRepository $postRepository, PreniumPostRepository $preniumPostRepository, UserRepository $userRepository): Response
     {
 
-        $posts = $this->$em->getRepository(Propertie::class)->findBy(
+        $posts = $postRepository->findBy(
             [],
-            ['updatedAt' => 'DESC']
+            ['updateDate' => 'DESC']
         );
 
-        $preniumPosts = $this->$em->getRepository(Propertie::class)->findBy(
+        $preniumPosts = $preniumPostRepository->findBy(
             [],
-            ['updatedAt' => 'DESC']
+            ['updateDate' => 'DESC']
         );
 
-        $users = $this->$em->getRepository(User::class)->findBy(
+        $users = $userRepository->findBy(
             [],
-            ['inscription_date' => 'DESC']
+            ['creationDate' => 'DESC']
         );
 
-        return $this->render('admin/index.html.twig', [
-            'properties' => $posts,
+        return $this->render('admin/admin.html.twig', [
+            'posts' => $posts,
             'preniumPosts' => $preniumPosts,
             'users' => $users
         ]);

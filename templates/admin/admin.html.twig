@@ -1,20 +1,149 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Hello AdminController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div>
+		<h1 class="text-center my-5">Admin Dashboard</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		<div class="row">
+			<div class="col">
+				<h5>Articles
+					<span>({{ posts|length }})</sapn>
+				</h5>
+				<table class="table table-striped table-hover">
+                    <thead class="table-info">
+					    <tr>
+						    <th scope="col">#</th>
+						    <th scope="col">Titre</th>
+						    <th scope="col">Auteur</th>
+						    <th scope="col">Publication</th>
+						    <th scope="col">Modification</th>
+						    <th scope="col">Actions</th>
+					    </tr>
+                    </thead>    
+                    <tbody>
+					{% set i = 1 %}
+					{% for post in posts %}
+						<tr scope="row">
+							<td>{{ i }}</td>
+							<td>
+								<a href="{{ path('post_show', {'id': post.id}) }}" target="_blank" class="text-decoration-none text-dark">{{ post.title }}</a>
+							</td>
+							<td>{{ post.user.lastName }}</td>
+							<td>{{ post.publicationDate|date('d/m/Y') }}</td>
+							<td>{{ post.updateDate|date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('post_edit', {'id': post.id}) }}">
+									<i class="btn btn-success">edit</i>
+								</a>
+								<a href="">
+									<i class="btn btn-danger">delete</i>
+								</a>
+							</td>
+						</tr>
+						{% set i = i+1 %}
+					{% endfor %}
+                    </tbody>
+				</table>
+			</div>
+		</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/KADAN/OneDrive/Bureau/PROJETS/Projet_Symfony/influentia/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/KADAN/OneDrive/Bureau/PROJETS/Projet_Symfony/influentia/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div class="row">
+			<div class="col">
+				<h5>Prenium
+					<span>({{ preniumPosts|length }})</sapn>
+				</h5>
+				<table class="table table-striped table-hover">
+                    <thead class="table-info">
+					    <tr>
+						    <th scope="col">#</th>
+						    <th scope="col">Titre</th>
+						    <th scope="col">Auteur</th>
+						    <th scope="col">Publication</th>
+						    <th scope="col">Modification</th>
+						    <th scope="col">Actions</th>
+                        </thead>    
+					</tr>
+                    <tbdy>
+					{% set i = 1 %}
+					{% for preniumPost in preniumPosts %}
+						<tr scope="row">
+							<td>{{ i }}</td>
+							<td>
+								<a href="{{ path('prenium_post_show', {'id': preniumPost.id}) }}" target="_blank" class="text-decoration-none text-dark">{{ preniumPost.title }}</a>
+							</td>
+							<td>{{ preniumPost.user.lastName }}</td>
+							<td>{{ preniumPost.publicationDate|date('d/m/Y') }}</td>
+							<td>{{ preniumPost.updateDate|date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('prenium_post_edit', {'id': preniumPost.id}) }}">
+									<i class="btn btn-success">edit</i>
+								</a>
+								<a href="">
+									<i class="btn btn-danger">delete</i>
+								</a>
+							</td>
+						</tr>
+						{% set i = i+1 %}
+					{% endfor %}
+                    </tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12">
+				<h5>Utilisateurs
+					<span>({{ users|length }})</sapn>
+				</h5>
+				<table class="table table-striped table-hover">
+                    <thead class="table-info">
+					    <tr>
+						    <th scope="col">#</th>
+						    <th scope="col">Nom</th>
+						    <th scope="col">Prénom</th>
+						    <th scope="col">Roles</th>
+						    <th scope="col">Email</th>
+						    <th scope="col">Inscrit le</th>
+						    <th scope="col">Actions</th>
+					    </tr>
+                    </thead>    
+                    <tbody>
+					{% set i = 1 %}
+					{% for user in users %}
+						<tr scope="row">
+							<td>{{ i }}</td>
+							<td>
+								<a href="{{ path('account', {'id': user.id}) }}" target="_blank" class="text-decoration-none text-dark">{{ user.lastname }}</a>
+							</td>
+							<td>{{ user.firstname }}</td>
+							{% if 'ROLE_ADMIN' in user.roles %}
+								<td>
+									<span class="badge bg-danger">admin</span>
+								</td>
+							{% else %}
+								<td>
+									<span>no admin</span>
+								</td>
+							{% endif %}
+							<td>{{ user.email }}</td>
+							<td>{{ user.creationDate|date('d/m/Y') }}</td>
+							<td>
+								<a href="">
+									<i class="btn btn-success">edit</i>
+								</a>
+								<a href="">
+									<i class="btn btn-danger">delete</i>
+								</a>
+							</td>
+						</tr>
+						{% set i = i+1 %}
+					{% endfor %}
+                    </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 {% endblock %}

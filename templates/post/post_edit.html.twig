@@ -4,7 +4,8 @@
 
 {% block body %}
 <div>
-    <h1>Modifier "{{ post.title }}"</h1>
+    <h1 class="text-center my-5">Modifier "{{ post.title }}"</h1>
+	
     <div>
 		{% if post.image is not null %}
 			<img src="{{ asset('uploads/' ~ post.image) }}">

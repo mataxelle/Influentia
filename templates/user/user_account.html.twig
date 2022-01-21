@@ -32,7 +32,7 @@
 						<p class="bold">Date d'inscription :</p><br>
 						<p>{{ app.user.creationDate|date('d/m/Y') }}</p>
 						<div class="card-action user-card-action">
-							<a href="{{ path('account_edit', {'id' : app.user.id}) }}" class="btn btn-success">Modifier</a>
+							<a href="{{ path('account_edit', {'id' : app.user.id}) }}" class="btn btn-success lift">Modifier</a>
 							<a href="{{ path('account_delete', {'id' : app.user.id}) }}" class="btn btn-danger">Supprimer</a>
 						</div>
 					</div>
