@@ -88,3 +88,21 @@ account_delete:
   controller: App\Controller\UserController::delete
   requirements:
     id: '\d+'
+
+#cart_chekout
+
+cart:
+  path: /cart
+  controller: App\Controller\CheckoutController::cart
+
+checkout_session:
+  path: /checkout_session
+  controller: App\Controller\CheckoutController::checkout
+
+checkout_success:
+  path: /cart_checkout/checkout_success
+  controller: App\Controller\CheckoutController::success
+
+checkout_cancel:
+  path: /cart_checkout/checkout_cancel
+  controller: App\Controller\CheckoutController::cancel      
