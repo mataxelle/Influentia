@@ -8,6 +8,8 @@
 
 {% block body %}
 	<div>
+	    {% include "base/small_prenium_link.html.twig" %}
+
 		<div class="col s12">
 			{% for message in app.flashes('message') %}
 				<div class="flash-message">
@@ -67,13 +69,13 @@
 							<p class="mb-2">
 								<strong>{{ post.user.firstName}}</strong>
 							</p>
-							<a href="" class="text-dark">
+							<a href="#" class="text-dark">
 								<i class="fab fa-facebook-f me-1"></i>
 							</a>
-							<a href="" class="text-dark">
+							<a href="#" class="text-dark">
 								<i class="fab fa-twitter me-1"></i>
 							</a>
-							<a href="" class="text-dark">
+							<a href="#" class="text-dark">
 								<i class="fab fa-linkedin me-1"></i>
 							</a>
 							<p>

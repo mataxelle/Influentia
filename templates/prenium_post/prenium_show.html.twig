@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | {{ preniumPost.title }}{% endblock %}
+{% block title %}
+	{{ parent() }}
+	|
+	{{ preniumPost.title }}
+{% endblock %}
 
 {% block body %}
-<div>
+	<div>
+		{% include "base/small_prenium_link.html.twig" %}
+
 		<div class="col s12">
 			{% for message in app.flashes('message') %}
 				<div class="flash-message">
@@ -19,7 +25,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-6 offset-md-3 mx-auto">
+			<div class="col-md-6 offset-md-3 mx-auto">
 				<div class="card border-0">
 					<div class="">
 						<div class="d-flex justify-content-end">
@@ -38,10 +44,10 @@
 						<p class="card-text">{{ preniumPost.content }}</p>
 					</div>
 					{% if is_granted('ROLE_ADMIN') %}
-					<div class="my-5">
-						<a href="{{ path('prenium_post_edit', {'id' : preniumPost.id}) }}" class="btn btn-success">Modifier</a>
-						<a href="{{ path('prenium_post_delete', {'id' : preniumPost.id}) }}" class="btn btn-danger">Supprimer</a>
-					</div>
+						<div class="my-5">
+							<a href="{{ path('prenium_post_edit', {'id' : preniumPost.id}) }}" class="btn btn-success">Modifier</a>
+							<a href="{{ path('prenium_post_delete', {'id' : preniumPost.id}) }}" class="btn btn-danger">Supprimer</a>
+						</div>
 					{% endif %}
 				</div>
 
@@ -66,8 +72,8 @@
 							</a>
 							<p>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio est ab iure
-								inventore dolorum consectetur? Molestiae aperiam atque quasi consequatur aut?
-								Repellendus alias dolor ad nam, soluta distinctio quis accusantium!
+																inventore dolorum consectetur? Molestiae aperiam atque quasi consequatur aut?
+																Repellendus alias dolor ad nam, soluta distinctio quis accusantium!
 							</p>
 						</div>
 					</div>

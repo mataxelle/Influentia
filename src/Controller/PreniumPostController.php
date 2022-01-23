@@ -189,4 +189,9 @@ class PreniumPostController extends AbstractController
 
         return $this->redirectToRoute('prenium');
     }
+
+    public function pack()
+    {
+        return $this->render('prenium_post/prenium_pack.html.twig');
+    }
 }

@@ -53,6 +53,10 @@ prenium_post_delete:
   requirements:
     id: '\d+'
 
+prenium_pack:
+    path: /prenium_pack
+    controller: App\Controller\PreniumPostController::pack
+
 # admin
 admin:
   path: /admin

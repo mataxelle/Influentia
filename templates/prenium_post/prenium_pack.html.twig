@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	| Abonnement
+{% endblock %}
+
+{% block body %}
+	<div>
+
+		<h1 class="text-center my-5">Abonnement</h1>
+
+		<div class="row">
+			<div class="col-md-6 mx-auto">
+				<div class="card shadow-lg p-3 mb-5 bg-body rounded">
+					<div class="card-body d-flex flex-column">
+						<h3 class="card-title text-center mb-5">Card title</h3>
+                        <p class="text-center mb-5"><a href="#" class="link-dark">Je découvre</a></p>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h4 class="text-center my-5">Seulement 5 €</h4>
+						<div class="m-auto pt-5">
+							<a href="{{ path('cart') }}" class="btn btn-warning">S'abonner</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

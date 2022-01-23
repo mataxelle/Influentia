@@ -8,7 +8,7 @@
 			{% endblock %}
 		</title>
 		{% block stylesheets %}
-		    {{ encore_entry_link_tags('app') }}
+			{{ encore_entry_link_tags('app') }}
 			<link rel="preconnect" href="https://fonts.googleapis.com">
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 			<link href="https://fonts.googleapis.com/css2?family=Baskervville&display=swap" rel="stylesheet">
@@ -16,73 +16,20 @@
 		{% endblock %}
 	</head>
 	<body>
-		<header>
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-				<div class="container-fluid">
-					<a class="navbar-brand ms-5" href="{{ path('index') }}">Influentia
-					</a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
-						<ul class="navbar-nav ms-auto text-center">
-							<li class="nav-item active">
-								<a class="nav-link active" href="{{ path('index') }}">Accueil<span class="sr-only"></span>
-								</a>
-							</li>
-							<li class="nav-item active">
-								<a class="nav-link" href="{{ path('prenium') }}">Prenium<span class="sr-only"></span>
-								</a>
-							</li>
-							<li class="nav-item active">
-								<a class="nav-link" href="{{ path('cart') }}">Panier<span class="sr-only"></span>
-								</a>
-							</li>
-							{% if is_granted('ROLE_ADMIN') %}
-								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-										Admin
-									</a>
-									<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-										<a class="dropdown-item" href="{{ path('admin') }}">Dashboard</a>
-										<a class="dropdown-item" href="{{ path('post_add') }}">Ajouter article</a>
-										<a class="dropdown-item" href="{{ path('prenium_post_add') }}">Ajouter Prenium</a>
-									</div>
-								</li>
-							{% endif %}
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-									Profile
-								</a>
-								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-									{% if app.user %}
-										<a class="dropdown-item" href="{{ path('account', {'id': app.user.id}) }}">Mon compte</a>
-										<a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
-									{% elseif app.user is null %}
-										<a class="dropdown-item" href="{{ path('login') }}">Connexion</a>
-										<a class="dropdown-item" href="{{ path('register') }}">Inscripion</a>
-									{% endif %}
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</header>
-
+		{% include "base/navbar.html.twig" %}
 		<main>
 			<div class="container mb-5"> {% block body %}{% endblock %}
-				</div>
-			</main>
+			</div>
+		</main>
 
-			<footer class="footer mt-auto py-3 bg-light">
-				<p class="text-center">
-					&copy; Copyright
+		<footer class="footer mt-auto py-3 bg-light">
+			<p class="text-center">
+				&copy; Copyright
 					{{ 'now'|date('Y') }}
-					&middot;
-					<a href="{{ path('about') }}" class="text-decoration-none text-secondary">About</a>
-				</p>
-			</footer>
+				&middot;
+				<a href="{{ path('about') }}" class="text-decoration-none text-secondary">About</a>
+			</p>
+		</footer>
 
 			{% block javascripts %}
 				{{ encore_entry_script_tags('app') }}
