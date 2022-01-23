@@ -9,8 +9,11 @@
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
-			<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+			<link rel="preconnect" href="https://fonts.googleapis.com">
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+			<link href="https://fonts.googleapis.com/css2?family=Baskervville&display=swap" rel="stylesheet">
+			<link rel="stylesheet" href="{{ asset('./assets/css/style.css') }}"/>
 		{#{{ encore_entry_link_tags('app') }}#}
 		{% endblock %}
 	</head>
@@ -30,22 +33,24 @@
 								</a>
 							</li>
 							<li class="nav-item active">
-								<a class="nav-link" href="{{ path('prenium') }}">Prenium<span class="sr-only"></span></a>
+								<a class="nav-link" href="{{ path('prenium') }}">Prenium<span class="sr-only"></span>
+								</a>
 							</li>
 							<li class="nav-item active">
-								<a class="nav-link" href="{{ path('cart') }}">Panier<span class="sr-only"></span></a>
+								<a class="nav-link" href="{{ path('cart') }}">Panier<span class="sr-only"></span>
+								</a>
 							</li>
 							{% if is_granted('ROLE_ADMIN') %}
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-									Admin
-								</a>
-								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="{{ path('admin') }}">Dashboard</a>
-									<a class="dropdown-item" href="{{ path('post_add') }}">Ajouter article</a>
-									<a class="dropdown-item" href="{{ path('prenium_post_add') }}">Ajouter Prenium</a>
-								</div>
-							</li>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+										Admin
+									</a>
+									<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="{{ path('admin') }}">Dashboard</a>
+										<a class="dropdown-item" href="{{ path('post_add') }}">Ajouter article</a>
+										<a class="dropdown-item" href="{{ path('prenium_post_add') }}">Ajouter Prenium</a>
+									</div>
+								</li>
 							{% endif %}
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
@@ -53,12 +58,12 @@
 								</a>
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 									{% if app.user %}
-									    <a class="dropdown-item" href="{{ path('account', {'id': app.user.id}) }}">Mon compte</a>
-									    <a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
+										<a class="dropdown-item" href="{{ path('account', {'id': app.user.id}) }}">Mon compte</a>
+										<a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
 									{% elseif app.user is null %}
-									    <a class="dropdown-item" href="{{ path('login') }}">Connexion</a>
+										<a class="dropdown-item" href="{{ path('login') }}">Connexion</a>
 										<a class="dropdown-item" href="{{ path('register') }}">Inscripion</a>
-									{% endif %}		
+									{% endif %}
 								</div>
 							</li>
 						</ul>
@@ -67,11 +72,10 @@
 			</nav>
 		</header>
 
-		<main> 
-		    <div class="container mb-5">
-			    {% block body %}{% endblock %}
-			</div>	
-		</main>
+		<main>
+			<div class="container mb-5"> {% block body %}{% endblock %}
+				</div>
+			</main>
 
 			<footer class="footer mt-auto py-3 bg-light">
 				<p class="text-center">

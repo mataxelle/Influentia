@@ -6,6 +6,7 @@ use App\Entity\PreniumPost;
 use App\Form\PreniumPostType;
 use App\Repository\PreniumPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class PreniumPostController extends AbstractController
         $this->em = $em;
     }*/
 
-    public function index(
+    public function prenium(
         PreniumPostRepository $preniumPostRepository, 
         PaginatorInterface $paginatorInterface, 
         Request $request
@@ -161,7 +162,9 @@ class PreniumPostController extends AbstractController
             if ($preniumPost->getPublished() == 0) {
 
                 $this->addFlash('message', 'Article Prenium modifié, mais non publié pour le moment !');
-        
+
+                return $this->redirectToRoute('prenium_post_show', ['id' => $preniumPost->getId()]);
+                
             } else {
 
                 $this->addFlash('message', 'Nouvel article Prenium ajouté avec succès');
