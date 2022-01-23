@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,11 +21,20 @@ class PostController extends AbstractController
         $this->em = $em;
     }*/
 
-    public function index(PostRepository $postRepository): Response
-    {
-        $posts = $postRepository->findBy(
+    public function index(
+        PostRepository $postRepository, 
+        PaginatorInterface $paginatorInterface, 
+        Request $request
+    ): Response {
+        $data = $postRepository->findBy(
             [],
             ['updateDate' => 'DESC']
+        );
+
+        $posts = $paginatorInterface->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            6
         );
 
         return $this->render('post/index.html.twig', [

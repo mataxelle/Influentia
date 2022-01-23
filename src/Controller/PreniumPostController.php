@@ -20,7 +20,28 @@ class PreniumPostController extends AbstractController
         $this->em = $em;
     }*/
 
-    public function prenium(PreniumPostRepository $preniumPostRepository): Response
+    public function index(
+        PreniumPostRepository $preniumPostRepository, 
+        PaginatorInterface $paginatorInterface, 
+        Request $request
+    ): Response {
+        $data = $preniumPostRepository->findBy(
+            [],
+            ['updateDate' => 'DESC']
+        );
+
+        $preniumPosts = $paginatorInterface->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            6
+        );
+
+        return $this->render('prenium_post/index.html.twig', [
+            'preniumPosts' => $preniumPosts,
+        ]);
+    }
+
+    /*public function prenium(PreniumPostRepository $preniumPostRepository): Response
     {
         $preniumPosts = $preniumPostRepository->findBy(
             [],
@@ -30,7 +51,7 @@ class PreniumPostController extends AbstractController
         return $this->render('prenium_post/index.html.twig', [
             'preniumPosts' => $preniumPosts,
         ]);
-    }
+    }*/
 
     public function add(Request $request, EntityManagerInterface $em): Response
     {
