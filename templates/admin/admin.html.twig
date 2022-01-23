@@ -35,11 +35,11 @@
 							<td>{{ post.publicationDate|date('d/m/Y') }}</td>
 							<td>{{ post.updateDate|date('d/m/Y') }}</td>
 							<td>
-								<a href="{{ path('post_edit', {'id': post.id}) }}">
-									<i class="btn btn-success">edit</i>
+								<a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-success">
+									<i class="far fa-edit"></i>
 								</a>
-								<a href="">
-									<i class="btn btn-danger">delete</i>
+								<a href="{{ path('post_delete', {'id': post.id}) }}" class="btn btn-danger">
+									<i class="far fa-trash-alt"></i>
 								</a>
 							</td>
 						</tr>
@@ -79,10 +79,10 @@
 							<td>{{ preniumPost.updateDate|date('d/m/Y') }}</td>
 							<td>
 								<a href="{{ path('prenium_post_edit', {'id': preniumPost.id}) }}">
-									<i class="btn btn-success">edit</i>
+									<i class="far fa-edit"></i>
 								</a>
-								<a href="">
-									<i class="btn btn-danger">delete</i>
+								<a href="{{ path('prenium_post_delete', {'id': preniumPost.id}) }}" class="btn btn-danger">
+									<i class="far fa-trash-alt"></i>
 								</a>
 							</td>
 						</tr>
@@ -131,11 +131,11 @@
 							<td>{{ user.email }}</td>
 							<td>{{ user.creationDate|date('d/m/Y') }}</td>
 							<td>
-								<a href="">
-									<i class="btn btn-success">edit</i>
+								<a href="{{ path('account_edit', {'id': user.id}) }}">
+									<i class="far fa-edit"></i>
 								</a>
-								<a href="">
-									<i class="btn btn-danger">delete</i>
+								<a href="{{ path('account_delete', {'id': user.id}) }}" class="btn btn-danger">
+									<i class="far fa-trash-alt"></i>
 								</a>
 							</td>
 						</tr>

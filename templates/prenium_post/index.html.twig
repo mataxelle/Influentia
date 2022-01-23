@@ -15,13 +15,19 @@
 					{% if preniumPost.published == 1 %}
 						<div class="card h-100">
 							{% include "includes/images/prenium_images.html.twig" %}
-							<div class="card-body">
+							<div class="card-body d-flex flex-column">
 								<h5 class="card-title">
 									<a href="{{ path('prenium_post_show', {'id' : preniumPost.id}) }}" class="text-decoration-none text-dark">{{ preniumPost.title }}</a>
 								</h5>
 								<p class="card-text">
-									<small class="text-muted"><em>Publié le {{ preniumPost.updateDate|date('d/m/Y') }}</em></small>
+									<small class="text-muted">
+										<em>Publié le
+											{{ preniumPost.updateDate|date('d/m/Y') }}</em>
+									</small>
 								</p>
+								<div class="m-auto">
+									<a class="btn btn-danger" href="{{ path('cart_add', { 'id' : preniumPost.id }) }}">Accédez à l'article pour 1 e</a>
+								</div>
 							</div>
 						</div>
 					{% endif %}
@@ -29,4 +35,12 @@
 			{% endfor %}
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+    let cancel = document.getElementById('cancel');
+
+</script>	
 {% endblock %}

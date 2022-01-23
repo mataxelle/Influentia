@@ -1,20 +1,17 @@
-{{ form_start(editAccountForm, {'attr': {'class': 'row'}}) }}
-    <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
-        {{ form_label(editAccountForm.firstname, 'Prénom') }}
-        {{ form_widget(editAccountForm.firstname) }}
-        <span class="error">{{ form_errors(editAccountForm.firstname) }}</span>
-    </div>
-    <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
-        {{ form_label(editAccountForm.lastname, 'Nom') }}
-        {{ form_widget(editAccountForm.lastname) }}
-        <span class="error">{{ form_errors(editAccountForm.lastname) }}</span>
-    </div>
-    <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
-        {{ form_label(editAccountForm.email, 'Email') }}
-        {{ form_widget(editAccountForm.email) }}
-        <span class="error">{{ form_errors(editAccountForm.email) }}</span>
-    </div>
-    <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
-        <input type="submit" class="btn">Modifier</button>
-    </div>    
+{{ form_start(editAccountForm, {'attr': {'class': 'col-6 offset-md-3 mb-5'}}) }}
+<div class="mb-3">
+	{{ form_label(editAccountForm.firstName, 'Prénom') }}
+	{{ form_widget(editAccountForm.firstName, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="mb-3">
+	{{ form_label(editAccountForm.lastName, 'Nom') }}
+	{{ form_widget(editAccountForm.lastName, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div>
+	{{ form_label(editAccountForm.email, 'Email') }}
+	{{ form_widget(editAccountForm.email, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="mb-3">
+	<input type="submit" class="btn btn-primary" value="Modifier" formnovalidate>
+</div>
 {{ form_end(editAccountForm) }}

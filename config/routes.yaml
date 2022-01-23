@@ -90,14 +90,27 @@ account_delete:
     id: '\d+'
 
 #cart_chekout
-
 cart:
-  path: /cart
+  path: /cart_checkout/cart
   controller: App\Controller\CheckoutController::cart
+
+cart_add:
+  path: /cart_checkout/cart_add/{id}
+  controller: App\Controller\CheckoutController::add
+
+cart_remove:
+  path: /cart_checkout/cart_remove/{id}
+  controller: App\Controller\CheckoutController::remove
+
+cart_delete_all:
+  path: /delete
+  controller: App\Controller\CheckoutController::deleteAll
 
 checkout_session:
   path: /checkout_session
   controller: App\Controller\CheckoutController::checkout
+  requirements:
+    id: '\d+'
 
 checkout_success:
   path: /cart_checkout/checkout_success

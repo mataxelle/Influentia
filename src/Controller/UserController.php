@@ -34,7 +34,7 @@ class UserController extends AbstractController
 
             $this->addFlash('message', 'Votre compte à été modifié avec succès');
 
-            return $this->redirectToRoute('user_account', ['id' => $user->getId()]);
+            return $this->redirectToRoute('account', ['id' => $user->getId()]);
         }
 
         return $this->render('user/user_account_edit.html.twig', [
