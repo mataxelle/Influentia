@@ -8,8 +8,6 @@
 
 {% block body %}
 	<div>
-	    {% include "base/small_prenium_link.html.twig" %}
-
 		<div class="col s12">
 			{% for message in app.flashes('message') %}
 				<div class="flash-message">
@@ -29,7 +27,7 @@
 				<div class="card border-0">
 					<div class="d-flex justify-content-end">
 						<span class="text-muted">
-						    <em>Publié le{{ post.updateDate|date('d/m/Y') }}</em>
+						    <em>Publié le {{ post.updateDate|date('d/m/Y') }}</em>
 						</span>
 					</div>
 

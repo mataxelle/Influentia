@@ -7,22 +7,19 @@
 
 {% block body %}
 	<div>
-
-	    {% include "base/small_prenium_link.html.twig" %}
-
 		<h1 class="text-center my-5">Prenium</h1>
 
 		<div class="row row-cols-1 row-cols-md-3 g-4 my-5">
 			{% for preniumPost in preniumPosts %}
 				<div class="col">
-					{% if preniumPost.published == 1 %}
+					{#% if preniumPost.published == 1 %#}
 						<div class="card h-100">
 							{% include "includes/images/prenium_images.html.twig" %}
 							<div class="card-body d-flex flex-column">
-								{% if is_granted('ROLE_ADMIN') %}
-									<h5 class="card-title">
-										<a href="{{ path('prenium_post_show', {'id' : preniumPost.id}) }}" class="text-decoration-none text-dark">{{ preniumPost.title }}</a>
-									</h5>
+						        {% if is_granted('ROLE_ADMIN')%}
+								<h5 class="card-title">
+									<a href="{{ path('prenium_post_show', {'id' : preniumPost.id}) }}" class="text-decoration-none text-dark">{{ preniumPost.title }}</a>
+								</h5>
 								{% endif %}
 								<p class="card-text">
 									<small class="text-muted">
@@ -31,11 +28,11 @@
 									</small>
 								</p>
 								<div class="m-auto">
-									<a class="btn btn-danger" href="{{ path('cart_add', { 'id' : preniumPost.id }) }}">Accédez à l'article pour 1 e</a>
+									<a class="btn btn-danger" href="{{ path('cart_add', { 'id' : preniumPost.id }) }}">Accédez à l'article pour 1€</a>
 								</div>
 							</div>
 						</div>
-					{% endif %}
+					{#% endif %#}
 				</div>
 			{% endfor %}
 		</div>

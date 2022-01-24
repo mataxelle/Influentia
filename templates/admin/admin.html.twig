@@ -7,7 +7,7 @@
 	<div>
 		<h1 class="text-center my-5">Admin Dashboard</h1>
 
-		<div class="row">
+		<div class="row my-5">
 			<div class="col">
 				<h5>Articles
 					<span>({{ posts|length }})</sapn>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 
-        <div class="row">
+        <div class="row my-5">
 			<div class="col">
 				<h5>Prenium
 					<span>({{ preniumPosts|length }})</sapn>
@@ -78,7 +78,7 @@
 							<td>{{ preniumPost.publicationDate|date('d/m/Y') }}</td>
 							<td>{{ preniumPost.updateDate|date('d/m/Y') }}</td>
 							<td>
-								<a href="{{ path('prenium_post_edit', {'id': preniumPost.id}) }}">
+								<a href="{{ path('prenium_post_edit', {'id': preniumPost.id}) }}" class="btn btn-success">
 									<i class="far fa-edit"></i>
 								</a>
 								<a href="{{ path('prenium_post_delete', {'id': preniumPost.id}) }}" class="btn btn-danger">
@@ -93,7 +93,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row my-5">
 			<div class="col s12">
 				<h5>Utilisateurs
 					<span>({{ users|length }})</sapn>
@@ -131,7 +131,7 @@
 							<td>{{ user.email }}</td>
 							<td>{{ user.creationDate|date('d/m/Y') }}</td>
 							<td>
-								<a href="{{ path('account_edit', {'id': user.id}) }}">
+								<a href="{{ path('account_edit', {'id': user.id}) }}" class="btn btn-success">
 									<i class="far fa-edit"></i>
 								</a>
 								<a href="{{ path('account_delete', {'id': user.id}) }}" class="btn btn-danger">

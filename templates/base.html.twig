@@ -17,23 +17,23 @@
 	</head>
 	<body>
 		{% include "base/navbar.html.twig" %}
+		{% include "base/small_prenium_link.html.twig" %}
 		<main>
-			<div class="container mb-5"> {% block body %}{% endblock %}
-			</div>
+			<div class="container mb-5"> {% block body %}{% endblock %}</div>
 		</main>
 
 		<footer class="footer mt-auto py-3 bg-light">
 			<p class="text-center">
-				&copy; Copyright
+					&copy; Copyright
 					{{ 'now'|date('Y') }}
-				&middot;
+					&middot;
 				<a href="{{ path('about') }}" class="text-decoration-none text-secondary">About</a>
 			</p>
 		</footer>
 
-			{% block javascripts %}
-				{{ encore_entry_script_tags('app') }}
-				<script src="https://kit.fontawesome.com/4c2b4e375e.js" crossorigin="anonymous"></script>
-			{% endblock %}
-		</body>
-	</html>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script src="https://kit.fontawesome.com/4c2b4e375e.js" crossorigin="anonymous"></script>
+		{% endblock %}
+	</body>
+</html>
