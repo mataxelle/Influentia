@@ -33,12 +33,12 @@ class Category
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\PreniumPost", mappedBy="categories")
      */
-    private $PreniumPosts;
+    private $preniumPosts;
 
     public function __construct()
     {
         $this->posts = new ArrayCollection();
-        $this->PreniumPosts = new ArrayCollection();
+        $this->preniumPosts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,13 +90,13 @@ class Category
      */
     public function getPreniumPosts(): Collection
     {
-        return $this->PreniumPosts;
+        return $this->preniumPosts;
     }
 
     public function addPreniumPost(PreniumPost $preniumPost): self
     {
-        if (!$this->PreniumPosts->contains($preniumPost)) {
-            $this->PreniumPosts[] = $preniumPost;
+        if (!$this->preniumPosts->contains($preniumPost)) {
+            $this->preniumPosts[] = $preniumPost;
             $preniumPost->addCategory($this);
         }
 
@@ -105,7 +105,7 @@ class Category
 
     public function removePreniumPost(PreniumPost $preniumPost): self
     {
-        if ($this->PreniumPosts->removeElement($preniumPost)) {
+        if ($this->preniumPosts->removeElement($preniumPost)) {
             $preniumPost->removeCategory($this);
         }
 
