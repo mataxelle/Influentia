@@ -14,19 +14,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CheckoutController extends AbstractController
 {
-    /*protected $stripeService;
-
-    public function __construct(
-
-        EntityManagerInterface $em,
-        StripeService $stripeService
-
-    ) {
-
-        $this->em = $em;
-        $this->stripeService = $stripeService;
-    }*/
-
     public function cart(SessionInterface $session, PreniumPostRepository $preniumPostRepository)
     {
         $panier = $session->get('panier', []);
@@ -52,33 +39,6 @@ class CheckoutController extends AbstractController
             'total' => $total
         ]);
     }
-
-    /*public function cart(SessionInterface $session, PreniumPostRepository $preniumPostRepository)
-    {
-        $panier = $session->get('panier', []);
-
-        $panierObject = [];
-
-        foreach($panier as $id => $quantity) {
-            $preniumPost = $preniumPostRepository->find($id);
-            $panierObject[] = [
-                'preniumPost' => $preniumPost?
-                'quantity' => $quantity = 1
-            ];
-        }
-
-        $total = 0;
-        
-        foreach($panierObject as $item) {
-            $totalItem = $item['preniumPost']->getPrice() * $quantity ;
-            $total += $totalItem;
-        }
-
-        return $this->render('cart_checkout/cart.html.twig', [
-            'preniumPosts' => $panierObject,
-            'total' => $total
-        ]);
-    }*/
     
     public function add(PreniumPost $preniumPost, SessionInterface $session, Request $request)
     {
@@ -87,7 +47,7 @@ class CheckoutController extends AbstractController
         $id = $preniumPost->getId();
 
         if (!empty($panier[$id])) {
-            $panier[$id]++;
+            $panier[$id];
         } else {
             $panier[$id] = 1;
         }
@@ -125,11 +85,17 @@ class CheckoutController extends AbstractController
         Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
         $session = Session::create([
+            'payment_method_types' => ['card'],
             'line_items' => [[
-                # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                'price' => 'price_1KKjxYBTkPOfpbQmRkWjKGF1',
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => 'Shoes'
+                    ],
+                    'unit_amount' => 300
+                ],
                 'quantity' => 1,
-              ]],
+            ]],
             'mode' => 'payment',
             'success_url' => $this->generateUrl('checkout_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
             'cancel_url' => $this->generateUrl('checkout_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
@@ -151,51 +117,4 @@ class CheckoutController extends AbstractController
             'controller_name' => 'CheckoutController',
         ]);
     }
-
-    /*public function checkout(PreniumPost $preniumPost)
-    {
-        Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
-
-        $session = Session::create([
-            'line_items' => [[
-                # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                'price' => 'price_1KKjxYBTkPOfpbQmRkWjKGF1',
-                'quantity' => 1,
-              ]],
-            'mode' => 'subscription ',
-            'success_url' => $this->generateUrl('checkout_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url' => $this->generateUrl('checkout_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        ]);
-
-        return $this->redirect($session->url, 303);
-
-        $intent = $this->stripeService->paymentIntent($preniumPost);
-
-        return $intent['client_secret'] ?? null;  
-    }
-
-    public function success(): Response
-    {
-        return $this->render('cart_checkout/checkout_success.html.twig', [
-            'controller_name' => 'CheckoutController',
-        ]);
-    }
-
-    public function cancel(): Response
-    {
-        return $this->render('cart_checkout/checkout_cancel.html.twig', [
-            'controller_name' => 'CheckoutController',
-        ]);
-    }
-
-    public function create_order(PreniumPost $preniumPost, User $user)
-    {
-        $order = new Order();
-        $order->setUser($user);
-        $order->setPreniumPost($preniumPost);
-        $order->setPrice($preniumPost->getPrice());
-        $order->setCreationDate(new \Datetime());
-        $this->em->persist($order);
-        $this->em->flush();
-    }*/
 }

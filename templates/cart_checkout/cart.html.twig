@@ -39,15 +39,16 @@
 					<tr>
 						<td colspan="2" class="text-end">Total :</td>
 						<td>{{ total }}.00</td>
-						<td></td>
+						<td><a href="{{path("cart_delete_all")}}" class="btn btn-danger">Annuler</a></td>
 					</tr>
 				</tfooter>
 			</table>
 
-			<form action="/checkout_session" method="POST">
-				<button type="submit" class="btn btn-success">Checkout</button>
-			</form>
-			<a href="{{path("cart_delete_all")}}" class="btn btn-danger">Annuler</a>
+			<div>
+				<form id="checkoutBtn">
+					<button type="submit" class="btn btn-success">Checkout</button>
+				</form>
+			</div>
 		{% else %}
 			<p class="text-center">Panier vide</p>
 		{% endif %}
@@ -55,8 +56,35 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script>
+	<script src="https://js.stripe.com/v3/"></script>
 
-		let cancel = document.getElementById('cancel');
+	<script type="text/javascript">
+
+	    // create an instance of the Stripe object.
+		let stripe = Stripe('{{ stripe_public_key }}');
+
+		let checkoutBtn = document.getElementById('checkoutBtn');
+
+		checkoutBtn.addEventListener('click', function() {
+
+		    // Call your backend to create the Checkout Session
+            fetch('/checkout_session', {
+                method: 'POST',
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.id }); // to redirect 
+            })
+            .then(function(result) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, you should display the localized error message to your
+            // customer using `error.message`.
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            });
+		});
 	</script>
 {% endblock %}
